@@ -5,7 +5,7 @@ include Stardog
 describe "Drop DBs Test Suite" do
 
   before(:each) do
-    @conn = stardog("http://localhost:5822/", :user => "admin", :password => "admin")
+    @conn = stardog("http://localhost:5820/", :user => "admin", :password => "admin")
   end
 
   after(:each) do

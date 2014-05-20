@@ -5,7 +5,7 @@ include Stardog
 describe "Integrity Constraints" do
 
   before(:each) do
-    @conn = stardog("http://localhost:5822/", :user => "admin", :password => "admin")
+    @conn = stardog("http://localhost:5820/", :user => "admin", :password => "admin")
     @db_name = "nodeDB_#{Time.now.to_i}"
     @conn.create_db(@db_name, :options => {"icv.enabled" => true})
   end

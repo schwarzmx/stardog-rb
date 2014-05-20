@@ -5,7 +5,7 @@ include Stardog
 describe "Reasoning examples" do
 
   before(:each) do
-    @conn = stardog("http://localhost:5822/", :user => "admin", :password => "admin")
+    @conn = stardog("http://localhost:5820/", :user => "admin", :password => "admin")
     @db_name = "nodeDB_#{Time.now.to_i}"
     @conn.create_db(@db_name)
 
@@ -26,7 +26,7 @@ describe "Reasoning examples" do
     data = results.body["results"]["bindings"]
     expect(data.length).to be_eql(0)     
      
-    @conn_reasoning = stardog("http://localhost:5822/", :user => "admin", :password => "admin", :reasoning => "QL")
+    @conn_reasoning = stardog("http://localhost:5820/", :user => "admin", :password => "admin", :reasoning => "QL")
     results = @conn_reasoning.query(@db_name, "select ?c where { ?c a <http://example.com/test/Organization> }")
      
     data = results.body["results"]["bindings"]
@@ -39,7 +39,7 @@ describe "Reasoning examples" do
     path_tbox = File.join(File.dirname(__FILE__), "data", "inconsistent_tbox.owl")
     @conn.add(@db_name, path_tbox, nil, "text/turtle")
 
-    @conn_reasoning = stardog("http://localhost:5822/", :user => "admin", :password => "admin", :reasoning => "QL")
+    @conn_reasoning = stardog("http://localhost:5820/", :user => "admin", :password => "admin", :reasoning => "QL")
     expect(@conn_reasoning.consistent?(@db_name)).to be_false
   end
 
