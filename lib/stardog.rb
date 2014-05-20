@@ -94,7 +94,7 @@ module Stardog
     
     def initialize
       # By default (for testing)
-      @endpoint = 'http://localhost:5822/'
+      @endpoint = 'http://localhost:5820/'
       @credentials = {:user =>'admin', :password => 'admin'}
     end
 
@@ -416,7 +416,7 @@ module Stardog
     # Copy a database
     # Copies a database. The source database must be offline.
     # The target database will be created.
-    def copy_db(db_source,db_target)
+    def copy_db(db_source, db_target)
       http_request("PUT", "admin/databases/#{db_source}/copy", "application/json", { "to" => db_target })
     end
 
@@ -425,7 +425,7 @@ module Stardog
       options = creation_options[:options] || {}
       files = creation_options[:files] ||= []
       if(files.empty?)
-        http_request("POST", "admin/databases", "text/plain", {}, {:dbname => dbname, :options => options, :files => files}.to_json, true, "application/json", true)
+        http_request("POST", "admin/databases", "application/json", {}, {:dbname => dbname, :options => options, :files => files}.to_json, true, "application/json", true)
       else
         f = Tempfile.new("stardog_rb_#{Time.now.to_i}")
         f << "{\"dbname\":\"#{dbname}\",\"options\":#{options.to_json},\"files\":[{"
@@ -437,7 +437,7 @@ module Stardog
         f << "}]}"
         f.flush
         f.close
-        http_request("POST", "admin/databases", "text/plain", {}, File.new(f.path), true, "application/json", true)                  
+        http_request("POST", "admin/databases", "*/*", {}, File.new(f.path), true, "application/json", true)
       end
     end
 
